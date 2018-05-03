@@ -1,12 +1,21 @@
+
+#  written by: Yaocheng Tong
+#  tested by:  Yaocheng Tong
+#  debugged by: Yaocheng Tong
+#  Presentationed by: Yaocheng Tong
+
+
 import json
 from itertools import groupby
 
-data = json.load(open('10.json','r+'))
+data = json.load(open('10.json', 'r+'))
 
 
 RUID = [item["RUID"] for item in data if "RUID" in item]
-CurrentBusStop = [item["CurrentBusStop"] for item in data if "CurrentBusStop" in item]
-DestinationBusStop = [item["DestinationBusStop"] for item in data if "DestinationBusStop" in item]
+CurrentBusStop = [item["CurrentBusStop"]
+                  for item in data if "CurrentBusStop" in item]
+DestinationBusStop = [item["DestinationBusStop"]
+                      for item in data if "DestinationBusStop" in item]
 Time = [item["Time"] for item in data if "Time" in item]
 
 RUID_Sorted = sorted(RUID)
