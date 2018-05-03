@@ -18,3 +18,9 @@ video:
 https://www.youtube.com/watch?v=ofHAWp02_pc
 
 https://www.youtube.com/watch?v=1EgXA6IHxOo
+
+
+
+
+
+For web application, its connected to my database right now, please change your API configs in order to run your files.

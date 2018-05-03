@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=960">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=EB+Garamond&amp;subset=all">
+    <title>Click-for-bus</title>
+</head>
+
+<style>
+    #map {
+        height: 800px;
+        width: 1000px;
+        margin: auto;
+        padding: auto;
+    }
+
+    .button {
+        background: #e3e3e3;
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+        box-shadow: inset 0 0 1px 1px #f6f6f6;
+        color: #333;
+        font: bold 12px/1 "helvetica neue", helvetica, arial, sans-serif;
+        padding: 8px 0 9px;
+        text-align: center;
+        text-shadow: 0 1px 0 #fff;
+        width: 150px;
+    }
+
+    /* The location pointed to by the popup tip. */
+
+    .popup-tip-anchor {
+        height: 0;
+        position: absolute;
+        /* The max width of the info window. */
+        width: 200px;
+    }
+
+    /* The bubble is anchored above the tip. */
+
+    .popup-bubble-anchor {
+        position: absolute;
+        width: 100%;
+        bottom: /* TIP_HEIGHT= */
+        8px;
+        left: 0;
+    }
+
+    /* Draw the tip. */
+
+    .popup-bubble-anchor::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* Center the tip horizontally. */
+        transform: translate(-50%, 0);
+        /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+        width: 0;
+        height: 0;
+        /* The tip is 8px high, and 12px wide. */
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: /* TIP_HEIGHT= */
+        8px solid white;
+    }
+
+    /* The popup bubble itself. */
+
+    .popup-bubble-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -100%);
+        /* Style the info window. */
+        background-color: white;
+        padding: 5px;
+        border-radius: 5px;
+        font-family: sans-serif;
+        overflow-y: auto;
+        max-height: 60px;
+        box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.5);
+    }
+</style>
+
+<body id="body">
+
+    &nbsp;&nbsp;&nbsp;
+
+    <div align="center">
+        <p>
+        </p>
+
+    </div>
+
+
+    <div id="map"></div>
+    <div id="content1">
+        Quads
+    </div>
+
+    <div id="content2">
+        Werblin Back Entrance
+    </div>
+
+    <div id="content3">
+        Hill Center
+    </div>
+    <div id="content4">
+        Science Building
+    </div>
+    <div id="content5">
+        Library of Science
+    </div>
+    <div id="content6">
+        Busch Suites
+    </div>
+    <div id="content7">
+        Busch Student Center
+    </div>
+    <div id="content8">
+        Livingston Plaza
+    </div>
+    <div id="content9">
+        Livingston Student Center
+    </div>
+
+    <script>
+        var map, popup, Popup, infoWindow;
+        /** Initializes the map and the custom popup. */
+        function initMap() {
+            definePopupClass();
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 40.5218549,
+                    lng: -74.4499384
+                },
+                zoom: 14,
+            });
+            infoWindow = new google.maps.InfoWindow;
+
+            popup = new Popup(
+                new google.maps.LatLng(40.5198612, -74.4335688),
+                document.getElementById('content1'));
+            popup.setMap(map);
+
+            popup = new Popup(
+                new google.maps.LatLng(40.518677, -74.4614698),
+                document.getElementById('content2'));
+            popup.setMap(map);
+
+            popup = new Popup(
+                new google.maps.LatLng(40.52192, -74.46326),
+                document.getElementById('content3'));
+            popup.setMap(map);
+            popup = new Popup(
+                new google.maps.LatLng(40.5239328, -74.464225),
+                document.getElementById('content4'));
+            popup.setMap(map);
+            popup = new Popup(
+                new google.maps.LatLng(40.5261998, -74.4658297),
+                document.getElementById('content5'));
+            popup.setMap(map);
+            popup = new Popup(
+                new google.maps.LatLng(40.52583, -74.45872),
+                document.getElementById('content6'));
+            popup.setMap(map);
+            popup = new Popup(
+                new google.maps.LatLng(40.5236, -74.45806),
+                document.getElementById('content7'));
+            popup.setMap(map);
+            popup = new Popup(
+                new google.maps.LatLng(40.5251062, -74.4385837),
+                document.getElementById('content8'));
+            popup.setMap(map);
+            popup = new Popup(
+                new google.maps.LatLng(40.5243131, -74.4363968),
+                document.getElementById('content9'));
+            popup.setMap(map);
+
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var image = 'bluecircle.png';
+                    var beachMarker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        icon: image
+                    });
+
+                    map.setCenter(pos);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        /** Defines the Popup class. */
+        function definePopupClass() {
+            /**
+             * A customized popup on the map.
+             * @param {!google.maps.LatLng} position
+             * @param {!Element} content
+             * @constructor
+             * @extends {google.maps.OverlayView}
+             */
+            Popup = function (position, content) {
+                this.position = position;
+
+                content.classList.add('popup-bubble-content');
+
+                var pixelOffset = document.createElement('div');
+                pixelOffset.classList.add('popup-bubble-anchor');
+                pixelOffset.appendChild(content);
+
+                this.anchor = document.createElement('div');
+                this.anchor.classList.add('popup-tip-anchor');
+                this.anchor.appendChild(pixelOffset);
+
+                // Optionally stop clicks, etc., from bubbling up to the map.
+                this.stopEventPropagation();
+            };
+            // NOTE: google.maps.OverlayView is only defined once the Maps API has
+            // loaded. That is why Popup is defined inside initMap().
+            Popup.prototype = Object.create(google.maps.OverlayView.prototype);
+
+            /** Called when the popup is added to the map. */
+            Popup.prototype.onAdd = function () {
+                this.getPanes().floatPane.appendChild(this.anchor);
+            };
+
+            /** Called when the popup is removed from the map. */
+            Popup.prototype.onRemove = function () {
+                if (this.anchor.parentElement) {
+                    this.anchor.parentElement.removeChild(this.anchor);
+                }
+            };
+
+            /** Called when the popup needs to draw itself. */
+            Popup.prototype.draw = function () {
+                var divPosition = this.getProjection().fromLatLngToDivPixel(this.position);
+                // Hide the popup when it is far out of view.
+                var display =
+                    Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000 ?
+                    'block' :
+                    'none';
+
+                if (display === 'block') {
+                    this.anchor.style.left = divPosition.x + 'px';
+                    this.anchor.style.top = divPosition.y + 'px';
+                }
+                if (this.anchor.style.display !== display) {
+                    this.anchor.style.display = display;
+                }
+            };
+
+            /** Stops clicks/drags from bubbling up to the map. */
+            Popup.prototype.stopEventPropagation = function () {
+                var anchor = this.anchor;
+                anchor.style.cursor = 'auto';
+
+                ['click', 'dblclick', 'contextmenu', 'wheel', 'mousedown', 'touchstart',
+                    'pointerdown'
+                ]
+                .forEach(function (event) {
+                    anchor.addEventListener(event, function (e) {
+                        e.stopPropagation();
+                    });
+                });
+            };
+        }
+    </script>
+
+
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3XTxVK32LN3lxwbTkXWcxRAF_lcw5vv8&callback=initMap">
+    </script>
+    <div align="center">
+        <div class="vis-2 pos-7 size-5 cont">
+            <p class="para-2">
+                <span class="font-3">Please select your preferred route</span>
+            </p>
+        </div>
+
+        <div align="center">
+            <select id="route" name="route">
+                <option selected disabled>Choose here</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="EE">EE</option>
+                <option value="F">F</option>
+                <option value="H">H</option>
+                <option value="LX">LX</option>
+                <option value="REXB">REXB</option>
+                <option value="REXL">REXL</option>
+            </select>
+        </div>
+        <div align="center">
+            <p class="para-2">
+                <span class="font-3">Please select your Current stop</span>
+            </p>
+        </div>
+        <div align="center">
+            <select id="Current stop" name="Current stop" onchange="myFunction()">
+                <option selected disabled>Choose here</option>
+                <option value="1030">Quads</option>
+                <option value="1003">Werblin Back Entrance</option>
+                <option value="1004"> Hill Center</option>
+                <option value="1005">Science Building</option>
+                <option value="1006">Library of Science</option>
+                <option value="1007">Busch Suites</option>
+                <option value="1008">Busch Student Center</option>
+                <option value="1028">Livingston Plaza</option>
+                <option value="1029">Livingston Student Center</option>
+
+            </select>
+        </div>
+        <div align="center">
+            <p class="para-2">
+                <span class="font-3">Please select your Destination stop</span>
+            </p>
+        </div>
+        <div align="center">
+            <select id="Destination stop" name="Destination stop">
+                <option selected disabled>Choose here</option>
+                <option value="quads">Quads</option>
+                <option value="Werblin Back Entrance">Werblin Back Entrance</option>
+                <option value="Hill Center"> Hill Center</option>
+                <option value="Science Building">Science Building</option>
+                <option value="Library of Science">Library of Science</option>
+                <option value="Busch Suites">Busch Suites</option>
+                <option value="Busch Student Center">Busch Student Center</option>
+                <option value="Livingston Plaza">Livingston Plaza</option>
+                <option value="Livingston Student Center">Livingston Student Center</option>
+
+            </select>
+        </div>
+    </div>
+
+
+    <div align="center">
+        <p>
+        </p>
+        <button id="request" class="button" type="button" onclick="request()">Request!</button>
+        <p id="demo"></p>
+        <p id="demo2"></p>
+        <p id="demo3"></p>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+        function myFunction() {
+            var sel = document.getElementById('Current stop');
+            var opt = sel.options[sel.selectedIndex].text;
+            document.getElementById("demo").innerHTML = "You selected current bus stop: " + opt;
+
+        };
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD6zVXDP21qQPTjxWIoFG_xUgsaoIGyj6k",
+            authDomain: "click-for-bus.firebaseapp.com",
+            databaseURL: "https://click-for-bus.firebaseio.com",
+            projectId: "click-for-bus",
+            storageBucket: "click-for-bus.appspot.com",
+            messagingSenderId: "863909529621"
+        };
+        firebase.initializeApp(config);
+        var database = firebase.database();
+
+        function request() {
+            var route = document.getElementById('route');
+            var route_opt = route.options[route.selectedIndex].text;
+
+            var sel = document.getElementById('Current stop');
+            var opt = sel.options[sel.selectedIndex].text;
+
+            var destination = document.getElementById('Destination stop');
+            var destination_opt = destination.options[destination.selectedIndex].text;
+
+            var currentdate = new Date();
+            var date = (currentdate.getMonth() + 1) + "/" +
+                currentdate.getDate() + "/" +
+                currentdate.getFullYear();
+            var time = (currentdate.getHours() < 10 ? '0' : '') + currentdate.getHours() + ":" +
+                (currentdate.getMinutes() < 10 ? '0' : '') + currentdate.getMinutes();
+
+            firebase.database().ref().push({
+                "RUID": parseInt(Math.random() * 1000000000),
+                "CurrentBusStop": opt,
+                "DestinationBusStop": destination_opt,
+                "Route": route_opt,
+                "Date": date,
+                "Time": time,
+            });
+
+
+            var currentStop_tag = sel.options[sel.selectedIndex].value;
+
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    getXML(this);
+                }
+            };
+
+            xhttp.open("GET",
+                "http://webservices.nextbus.com/service/publicXMLFeed?a=rutgers&command=predictions&stopId=" +
+                currentStop_tag + "&routeTag=b",
+                true);
+            xhttp.send();
+
+
+            function getXML(xml) {
+                var xmlDoc = xml.responseXML;
+                var x = xmlDoc.getElementsByTagName("prediction")[0];
+                var y = x.getAttributeNode("minutes");
+                var txt = y.nodeValue;
+                document.getElementById("demo2").innerHTML = "You current waiting time is: " + txt + " minutes";
+            }
+
+
+
+
+
+
+
+
+            document.getElementById("demo3").innerHTML =
+                '<button id="chatroom" name="chatroom" onclick="chatroom()">Chatroom</button>'
+
+
+        }
+
+        function chatroom() {
+            window.open('https://friendlychat-c8aef.firebaseapp.com/')
+        }
+    </script>
+
+
+</body>
+
+</html>

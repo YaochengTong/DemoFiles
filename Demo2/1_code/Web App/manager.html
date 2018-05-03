@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Manager</title>
+</head>
+
+<body>
+
+    <div align="center">
+        <p>
+            <span>Total requests are:</span>
+        </p>
+
+        <p id="count1"></p>
+
+        <p>
+            <span>Total requests for B route are:</span>
+        </p>
+        <p id="count2"></p>
+
+        <p>
+            <span>Total requests today:</span>
+        </p>
+        <p id="count3"></p>
+        <p>
+            <span>Current hour total requests:</span>
+        </p>
+        <p id="count4"></p>
+
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD6zVXDP21qQPTjxWIoFG_xUgsaoIGyj6k",
+            authDomain: "click-for-bus.firebaseapp.com",
+            databaseURL: "https://click-for-bus.firebaseio.com",
+            projectId: "click-for-bus",
+            storageBucket: "click-for-bus.appspot.com",
+            messagingSenderId: "863909529621"
+        };
+        firebase.initializeApp(config);
+        var database = firebase.database();
+        var currentdate = new Date();
+        var date = (currentdate.getMonth() + 1) + "/" +
+            currentdate.getDate() + "/" +
+            currentdate.getFullYear();
+
+
+        database.ref().once('value').then(function (snapshot) {
+                var total_count = snapshot.numChildren();
+                document.getElementById("count1").innerHTML = total_count;
+
+                var data = snapshot.val();
+                var current_hour = currentdate.getHours()
+                route_count = 0
+                time_count = 0
+                date_count = 0
+                routeb_count = 0
+                routea_count = 0
+                routec_count = 0
+                routeee_count = 0
+                routef_count = 0
+                routeh_count = 0
+                routelx_count = 0
+                routerexb_count = 0
+                routerexl_count = 0
+                for (i = 0; i < total_count; i++) {
+                    var time = snapshot.child(Object.keys(data)[i]).child("Time").val();
+                    var route = snapshot.child(Object.keys(data)[i]).child("Route").val();
+                    var date1 = snapshot.child(Object.keys(data)[i]).child("Date").val();
+
+                    if (route == "B") {
+                        routeb_count += 1
+                    }
+                    if (route == "A") {
+                        routea_count += 1
+                    }
+                    if (route == "C") {
+                        routec_count += 1
+                    }
+                    if (route == "EE") {
+                        routeee_count += 1
+                    }
+                    if (route == "F") {
+                        routef_count += 1
+                    }
+                    if (route == "H") {
+                        routeh_count += 1
+                    }
+                    if (route == "LX") {
+                        routelx_count += 1
+                    }
+                    if (route == "REXB") {
+                        routerexb_count += 1
+                    }
+                    if (route == "REXL") {
+                        routerexl_count += 1
+                    }
+
+                    if (date1 == date) {
+                        date_count += 1
+
+                    }
+                    if (date1 == date && (time[0] + time[1]) == current_hour) {
+                        time_count += 1
+                    }
+
+                }
+                document.getElementById("count2").innerHTML = routeb_count;
+                document.getElementById("count3").innerHTML = date_count;
+                document.getElementById("count4").innerHTML = time_count;
+
+
+                //   document.getElementById("count3").innerHTML = Object.keys(data).length;
+
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Rutgers Bus Managerment'
+                    },
+                    subtitle: {
+                        text: 'Requests'
+                    },
+                    xAxis: {
+                        categories: [
+                            'Total requests',
+                            'Route requests for B',
+                            'Requests today',
+                            'Requests current hour',
+
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'requests'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} times</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        name: 'Rutgers',
+                        data: [total_count, routeb_count, date_count, time_count]
+
+                    }]
+                });
+
+
+                Highcharts.chart('container2', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Rutgers Bus Managerment'
+                    },
+                    subtitle: {
+                        text: 'Requests for every Route'
+                    },
+                    xAxis: {
+                        categories: [
+                            'A',
+                            'B',
+                            'C',
+                            'EE',
+                            'F',
+                            'H',
+                            'LX',
+                            'REXB',
+                            'REXL'
+
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'requests'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} times</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        name: 'Rutgers',
+                        data: [routea_count, routeb_count, routec_count, routeee_count,
+                            routef_count, routeh_count, routelx_count, routerexb_count,
+                            routerexl_count
+                        ]
+
+                    }]
+                });
+
+            }
+
+
+
+        );
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+</body>
+
+</html>

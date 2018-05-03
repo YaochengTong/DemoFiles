@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=960">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=EB+Garamond&amp;subset=all">
+    <title>Click-for-bus</title>
+    <link rel="stylesheet" type="text/css" href="css/site.20180424131012.css">
+    <!--[if lte IE 7]>
+<link rel="stylesheet" type="text/css" href="css/site.20180424131012-lteIE7.css">
+<![endif]-->
+</head>
+
+<body id="body">
+    <div class="pos vis section">
+        <div class="vis-2 pos-2 size cont">
+            <picture class="img-2">
+                <source srcset="images/rutgerslogo-327.png 1x, images/rutgerslogo-654.png 2x">
+                <img src="images/rutgerslogo-327.png" alt="" class="js img">
+            </picture>
+        </div>
+        <div class="vis-2 pos-3 size-2 cont">
+            <p class="para">
+                <span class="font">Click for Bus</span>
+            </p>
+        </div>
+        <div align="center" class="vis-2 pos-4 size-3 cont-2">
+            <a class="button vis-3 pos-5 size-4 font-2" href="map.html">Sign in</a>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/index.20180424131012.js"></script>
+    <script type="text/javascript">
+        var ver = RegExp(/Mozilla\/5\.0 \(Linux; .; Android ([\d.]+)/).exec(navigator.userAgent);
+        if (ver && parseFloat(ver[1]) < 5) {
+            document.getElementsByTagName('body')[0].className += ' whitespacefix';
+        }
+    </script>
+</body>
+
+</html>

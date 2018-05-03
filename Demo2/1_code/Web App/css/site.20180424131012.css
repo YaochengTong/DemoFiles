@@ -1,0 +1,423 @@
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0
+}
+
+audio,
+video {
+    display: inline-block;
+    vertical-align: baseline
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden],
+template {
+    display: none
+}
+
+a {
+    background: 0 0
+}
+
+a:active,
+a:hover {
+    outline: 0
+}
+
+b,
+strong {
+    font-weight: 700
+}
+
+dfn {
+    font-style: italic
+}
+
+h1 {
+    font-size: 2em;
+    margin: .67em 0
+}
+
+img {
+    border: 0
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0
+}
+
+button {
+    overflow: visible
+}
+
+button,
+select {
+    text-transform: none
+}
+
+button,
+html input[type=button],
+input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    box-sizing: border-box
+}
+
+input[type=text] {
+    box-sizing: border-box
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0
+}
+
+input {
+    line-height: normal
+}
+
+input[type=checkbox],
+input[type=radio] {
+    box-sizing: border-box;
+    padding: 0
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    height: auto
+}
+
+input[type=search] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box
+}
+
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+
+textarea {
+    overflow: auto;
+    box-sizing: border-box;
+    border-color: #ddd
+}
+
+optgroup {
+    font-weight: 700
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+td,
+th {
+    padding: 0
+}
+
+body,
+div {
+    font-size: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    word-spacing: normal;
+    word-wrap: break-word;
+    pointer-events: auto;
+}
+
+ul {
+    list-style-type: none;
+    -moz-padding-start: 0;
+    -khtml-padding-start: 0;
+    -webkit-padding-start: 0;
+    -o-padding-start: 0;
+    -padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
+li p {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: :none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+form {
+    display: inline-block;
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.whitespacefix {
+    word-spacing: -1px;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#body {
+    background-color: rgb(255, 255, 255);
+}
+
+.pos {
+    position: relative;
+    margin-top: 126px;
+}
+
+.vis {
+    display: block;
+}
+
+.section {
+    pointer-events: none;
+    min-width: 960px;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.vis-2 {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.pos-2 {
+    position: relative;
+    margin-left: 296px;
+    margin-top: 0;
+}
+
+.size {
+    min-width: 355px;
+    width: 355px;
+    min-height: 306px;
+    height: 306px;
+}
+
+.cont {
+    pointer-events: auto;
+}
+
+.img {
+    position: absolute;
+    left: 14px;
+    width: 327px;
+    height: 306px;
+    top: 0;
+    border: 0;
+}
+
+.img-2 {
+    left: 14px;
+    width: 327px;
+    height: 306px;
+    top: 0;
+}
+
+.pos-3 {
+    position: relative;
+    margin-left: -228px;
+    margin-top: 306px;
+}
+
+.size-2 {
+    min-width: 101px;
+    width: 101px;
+    min-height: 46px;
+}
+
+.para {
+    padding-top: 0;
+    text-indent: 0;
+    margin-top: 3.92pt;
+    margin-bottom: -3.92pt;
+    padding-right: 0;
+    text-align: left;
+}
+
+.font {
+    font-family: "EB Garamond";
+    font-size: 15.00pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    line-height: 27.41pt;
+    letter-spacing: normal;
+}
+
+.pos-4 {
+    position: relative;
+    margin-left: -117px;
+    margin-top: 377px;
+}
+
+.size-3 {
+    min-width: 133px;
+    width: 133px;
+    min-height: 59px;
+}
+
+.cont-2 {
+    z-index: 2;
+    pointer-events: auto;
+}
+
+.button {
+    border: 0;
+    background-color: rgb(184, 200, 210);
+}
+
+.button:hover {
+    background-color: rgb(130, 147, 158);
+    border-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+.button:active {
+    background-color: rgb(82, 100, 111);
+    border-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.vis-3 {
+    display: inline-block;
+    overflow: hidden;
+    outline: 0;
+}
+
+.size-4 {
+    width: 133px;
+    height: 41px;
+}
+
+.font-2 {
+    font-family: "Arial Unicode MS", sans-serif;
+    font-size: 12.00pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    line-height: 16.08pt;
+    letter-spacing: normal;
+    text-indent: 0;
+    text-align: center;
+    padding-top: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.pos-6 {
+    position: relative;
+    margin-top: 148px;
+}
+
+.pos-7 {
+    position: relative;
+    margin-left: 384px;
+    margin-top: 0;
+}
+
+.size-5 {
+    min-width: 192px;
+    width: 192px;
+    min-height: 41px;
+}
+
+.para-2 {
+    padding-top: 0;
+    text-indent: 0;
+    margin-top: 2.94pt;
+    margin-bottom: -2.94pt;
+    padding-right: 0;
+    text-align: center;
+}
+
+.font-3 {
+    font-family: "EB Garamond";
+    font-size: 11.25pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    line-height: 20.55pt;
+    letter-spacing: normal;
+}
+
+.pos-8 {
+    position: relative;
+    margin-left: -144px;
+    margin-top: 68px;
+}
+
+.size-6 {
+    min-width: 97px;
+    width: 97px;
+    min-height: 40px;
+}
+
+.pos-9 {
+    position: relative;
+    margin-top: 170px;
+}
+
+.pos-10 {
+    position: relative;
+    margin-left: 396px;
+    margin-top: 0;
+}
+
+.size-7 {
+    min-width: 169px;
+    width: 169px;
+    min-height: 34px;
+}
+
+
