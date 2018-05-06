@@ -44,3 +44,9 @@ https://friendlychat-c8aef.firebaseapp.com/
 Attention:
 
 Please allowed website to track your current location, and also after you hit request button, please load unsafety content of your web browser in order to get data from NextBus API
+
+Codes are all 
+#  written by: Yaocheng Tong
+#  tested by:  Yaocheng Tong
+#  debugged by: Yaocheng Tong
+#  Presentationed by: Yaocheng Tong

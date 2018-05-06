@@ -18,3 +18,9 @@ Implementation video is list below:
 Demo1Algorithm: https://www.youtube.com/watch?v=JPQU4dbd38Y
 
 database_manipulation: https://www.youtube.com/watch?v=32RzDslpSqU
+
+Codes are all
+#  written by: Yaocheng Tong
+#  tested by:  Yaocheng Tong
+#  debugged by: Yaocheng Tong
+#  Presentationed by: Yaocheng Tong

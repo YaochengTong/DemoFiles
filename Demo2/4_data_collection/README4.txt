@@ -7,3 +7,10 @@ and also the scripts to collect data are in part of android app source code.
 
 https://www.youtube.com/watch?v=1EgXA6IHxOo
 This video will show how we collect data
+
+
+Datas are all 
+#  written by: Yaocheng Tong
+#  tested by:  Yaocheng Tong
+#  debugged by: Yaocheng Tong
+#  Presentationed by: Yaocheng Tong
